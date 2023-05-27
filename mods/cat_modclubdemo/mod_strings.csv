@@ -1,0 +1,10 @@
+key,en
+MOD_CAT_MODCLUBDEMO_NAME,Mod Club Demo
+MODUTILS_MISSING_TITLE,Missing dependencies!
+MODUTILS_MISSING_MESSAGE,"Required mod dependency ""Mod Utils"" is missing or needs to be updated.\n\nPlease check the dependencies for your installed mods."
+MODCLUBDEMO_REGION_NAME_CAVE,Demo Cave
+MODCLUBDEMO_PASSENGER_NAME,Demo Passenger
+MODCLUBDEMO_PASSENGER1,"Hey {player}. Sorry for speaking out of character, but..."
+MODCLUBDEMO_PASSENGER2,I'm the demo NPC added by Mod Club Demo.
+MODCLUBDEMO_PASSENGER3,"Every time I'm summoned, my looks are randomized, to give the illusion of multiple NPCs."
+MODCLUBDEMO_PASSENGER4,Hope I didn't confuse you!

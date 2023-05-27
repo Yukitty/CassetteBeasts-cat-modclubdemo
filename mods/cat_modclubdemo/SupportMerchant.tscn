@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://data/items/pulp.tres" type="Resource" id=1]
+[ext_resource path="res://world/npc/HumanNPC.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sfx/voices/female_npc_6/female_npc_6_greeting.wav" type="AudioStream" id=3]
+[ext_resource path="res://world/behaviors/generic_npc/MerchantNPCBehavior.tscn" type="PackedScene" id=4]
+
+[node name="SupportMerchant" instance=ExtResource( 2 )]
+sprite_colors = {
+"body_color_1": 12,
+"body_color_2": -1,
+"eye_color": 16,
+"face_accessory_color": 7,
+"favorite_color": 16,
+"hair_accessory_color": 15,
+"hair_color": 2,
+"legs_color": 0,
+"shoe_color": 12,
+"skin_color": -1
+}
+sprite_part_names = {
+"arms": "vest1",
+"body": "vest1",
+"hair": "long1",
+"head": "makeup1",
+"legs": "shorts1",
+"wings": "generic"
+}
+human_colors/body_color_1 = 12
+human_colors/eye_color = 16
+human_colors/face_accessory_color = 7
+human_colors/favorite_color = 16
+human_colors/hair_accessory_color = 15
+human_colors/hair_color = 2
+human_colors/legs_color = 0
+human_colors/shoe_color = 12
+
+[node name="HumanSprite" parent="Sprite" index="0"]
+part_names = {
+"arms": "vest1",
+"body": "vest1",
+"hair": "long1",
+"head": "makeup1",
+"legs": "shorts1",
+"wings": "generic"
+}
+colors = {
+"body_color_1": 12,
+"body_color_2": -1,
+"eye_color": 16,
+"face_accessory_color": 7,
+"favorite_color": 16,
+"hair_accessory_color": 15,
+"hair_color": 2,
+"legs_color": 0,
+"shoe_color": 12,
+"skin_color": -1
+}
+
+[node name="InteractionBehavior" parent="." index="9" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0 )
+voice_audio = ExtResource( 3 )
+dialogue = [ "HARBOURTOWN_MERCHANT_3" ]
+exchange_name = "HARBOURTOWN_MERCHANT_NAME_2"
+closing_dialogue = [ "HARBOURTOWN_MERCHANT_4" ]
+currency = ExtResource( 1 )
+stock_sticker_tags = [ "support" ]
+random_sticker_stock_amount = 5
+additional_stock_stat_key = "merchant_stock_stickers"

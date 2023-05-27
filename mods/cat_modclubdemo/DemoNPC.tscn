@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://world/npc/HumanNPC.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/behaviors/generic_npc/DialogueNPCBehavior.tscn" type="PackedScene" id=2]
+
+[node name="DemoNPC" instance=ExtResource( 1 )]
+npc_name = "MODCLUBDEMO_PASSENGER_NAME"
+
+[node name="InteractionBehavior" parent="." index="9" instance=ExtResource( 2 )]
+title = "{pawn}"
+dialogue = [ "MODCLUBDEMO_PASSENGER1", "MODCLUBDEMO_PASSENGER2", "MODCLUBDEMO_PASSENGER3", "MODCLUBDEMO_PASSENGER4" ]
+
+[connection signal="ready" from="." to="." method="randomize_sprite"]

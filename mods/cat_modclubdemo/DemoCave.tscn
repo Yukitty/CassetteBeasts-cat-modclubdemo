@@ -1,0 +1,117 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://sprites/sky_black.png" type="Texture" id=1]
+[ext_resource path="res://world/objects/chests/Chest1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/maps/caves/BaseGenericCave1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://mods/cat_modutils/world/RedkrabReturn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://data/QuestLocation.gd" type="Script" id=5]
+[ext_resource path="res://data/monster_spawn_profiles/deadlands_caves.tres" type="Resource" id=6]
+[ext_resource path="res://world/maps/CaveMeshlib.meshlib" type="MeshLibrary" id=7]
+[ext_resource path="res://data/RegionSettings.gd" type="Script" id=8]
+[ext_resource path="res://battle/backgrounds/BattleCave.tscn" type="PackedScene" id=9]
+[ext_resource path="res://music/demo/cave.ogg" type="AudioStream" id=10]
+[ext_resource path="res://world/objects/rigid_physics/LiftableCrate.tscn" type="PackedScene" id=11]
+[ext_resource path="res://world/objects/wired/floor_button/FloorButton.tscn" type="PackedScene" id=12]
+
+[sub_resource type="Resource" id=5]
+resource_name = "Demo Cave Region"
+script = ExtResource( 8 )
+region_name = "MODCLUBDEMO_REGION_NAME_CAVE"
+music_day = ExtResource( 10 )
+music_night = ExtResource( 10 )
+weather_kinds = [  ]
+battle_background = ExtResource( 9 )
+battle_level = 17
+warn_about_level = true
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 1 )
+
+[sub_resource type="Environment" id=2]
+resource_local_to_scene = true
+background_mode = 3
+background_sky = SubResource( 1 )
+background_sky_custom_fov = 88.0
+background_energy = 0.2
+ambient_light_color = Color( 0.42, 0.42, 0.42, 1 )
+ambient_light_energy = 0.5
+ambient_light_sky_contribution = 0.25
+fog_enabled = true
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 1, 0.956863, 0.87451, 1 )
+fog_depth_begin = 40.0
+fog_depth_end = 90.0
+fog_transmit_enabled = true
+ssao_color = Color( 0.2, 0.172549, 0.25098, 1 )
+dof_blur_far_enabled = true
+dof_blur_far_distance = 51.0
+dof_blur_far_transition = 20.0
+dof_blur_far_quality = 2
+dof_blur_near_enabled = true
+dof_blur_near_distance = 37.0
+dof_blur_near_transition = 5.0
+dof_blur_near_quality = 2
+glow_enabled = true
+glow_intensity = 1.0
+adjustment_enabled = true
+adjustment_contrast = 1.16
+adjustment_saturation = 1.16
+
+[sub_resource type="Resource" id=4]
+resource_name = "DemoCave QuestLocation"
+script = ExtResource( 5 )
+region_name = "MODCLUBDEMO_REGION_NAME_CAVE"
+level = 17
+characteristics = 128
+require_flag = "modutils_demoadventure_chest1"
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 50, 50, 1 )
+
+[node name="DemoCave" instance=ExtResource( 3 )]
+default_region_settings = SubResource( 5 )
+
+[node name="ModGridMap" type="GridMap" parent="." index="1"]
+mesh_library = ExtResource( 7 )
+data = {
+"cells": PoolIntArray( 2, 2, 655375, 3, 2, 655373, 4, 2, 655373, 5, 2, 1048591, 2, 3, 1441805, 3, 3, 655367, 4, 3, 8, 5, 3, 1048589, 65540, 3, 1441820, 2, 4, 1441806, 3, 4, 1048584, 4, 4, 8, 5, 4, 1048589, 2, 5, 1441807, 3, 5, 13, 4, 5, 13, 5, 5, 15, 65530, 6, 655399, 65529, 65531, 1048614, 65530, 65531, 35, 65531, 65531, 35, 65532, 65531, 36, 65533, 65531, 35, 65534, 65531, 39, 65529, 65532, 1048611, 65529, 65533, 1048612, 65529, 65534, 1048611, 65531, 65534, 27, 65529, 65535, 1048616 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
+}
+
+[node name="WorldCamera" parent="Tracker" index="0"]
+environment = SubResource( 2 )
+
+[node name="EntranceWarp" parent="." index="5"]
+monitoring = false
+monitorable = false
+disabled = true
+
+[node name="QuestLocationLayer" parent="." index="6"]
+location = SubResource( 4 )
+spawn_profile = ExtResource( 6 )
+
+[node name="ConditionalLayer" parent="." index="7"]
+deny_quest_location = SubResource( 4 )
+
+[node name="Chest" parent="ConditionalLayer" index="0" instance=ExtResource( 2 )]
+opened_flag = "modutils_demoadventure_chest1"
+
+[node name="FloorButton" parent="ConditionalLayer/Chest" index="5" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 5 )
+
+[node name="LiftableCrate" parent="." index="8" instance=ExtResource( 11 )]
+transform = Transform( 0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 8, 3.1, 9 )
+
+[node name="Redkrab" parent="." index="9" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16 )
+initial_direction = "up"
+direction = Vector2( 0, -1 )
+
+[node name="StaticBody" type="StaticBody" parent="." index="10"]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44, 23 )
+shape = SubResource( 3 )

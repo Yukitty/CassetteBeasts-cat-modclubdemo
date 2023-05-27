@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://nodes/actions/values/GetPlayer.gd" type="Script" id=1]
+[ext_resource path="res://nodes/actions/FaceTowardsAction.gd" type="Script" id=2]
+[ext_resource path="res://addons/misc_utils/actions/values/GetPawn.gd" type="Script" id=3]
+[ext_resource path="res://nodes/actions/Cutscene.gd" type="Script" id=4]
+[ext_resource path="res://world/npc/HumanNPC.tscn" type="PackedScene" id=5]
+[ext_resource path="res://nodes/actions/SetBlackboardValues.gd" type="Script" id=6]
+[ext_resource path="res://nodes/actions/UnlockPartnerAction.gd" type="Script" id=7]
+[ext_resource path="res://world/core/ConditionalLayer.gd" type="Script" id=8]
+[ext_resource path="res://sprites/characters/world/dog.json" type="PackedScene" id=9]
+[ext_resource path="res://nodes/actions/ConfirmDialogAction.gd" type="Script" id=10]
+[ext_resource path="res://data/characters/dog.tres" type="Resource" id=11]
+
+[node name="ConditionalLayer" type="Spatial"]
+script = ExtResource( 8 )
+deny_partner_id = "dog"
+require_partner_unlocked = "dog"
+
+[node name="Barkley" parent="." instance=ExtResource( 5 )]
+npc_name = "DOG_NAME"
+pronouns = 0
+sprite_colors = {
+"body_color_1": 16,
+"body_color_2": 16,
+"eye_color": 16,
+"face_accessory_color": 16,
+"favorite_color": 7,
+"hair_accessory_color": 16,
+"hair_color": 16,
+"legs_color": 16,
+"shoe_color": 16,
+"skin_color": 16
+}
+sprite_part_names = {
+"arms": "sweater1",
+"body": "sweater1",
+"hair": "short",
+"head": "generic",
+"legs": "",
+"wings": "dog"
+}
+sprite_body = ExtResource( 9 )
+character = ExtResource( 11 )
+human_colors/body_color_1 = 16
+human_colors/body_color_2 = 16
+human_colors/eye_color = 16
+human_colors/face_accessory_color = 16
+human_colors/favorite_color = 7
+human_colors/hair_accessory_color = 16
+human_colors/hair_color = 16
+human_colors/legs_color = 16
+human_colors/shoe_color = 16
+human_colors/skin_color = 16
+
+[node name="InteractionBehavior" type="Node" parent="Barkley"]
+script = ExtResource( 4 )
+
+[node name="FaceTowardsAction" type="Node" parent="Barkley/InteractionBehavior"]
+script = ExtResource( 2 )
+
+[node name="GetPawn" type="Node" parent="Barkley/InteractionBehavior/FaceTowardsAction"]
+script = ExtResource( 3 )
+
+[node name="GetPlayer" type="Node" parent="Barkley/InteractionBehavior/FaceTowardsAction"]
+script = ExtResource( 1 )
+
+[node name="SetBlackboardValues" type="Node" parent="Barkley/InteractionBehavior"]
+script = ExtResource( 6 )
+bb_values = {
+"name": "DOG_NAME"
+}
+
+[node name="ConfirmDialogAction" type="Node" parent="Barkley/InteractionBehavior"]
+script = ExtResource( 10 )
+message = "PARTNER_SWAP_CONFIRM"
+substitute_blackboard_keys = [ "name" ]
+
+[node name="UnlockPartnerAction" type="Node" parent="Barkley/InteractionBehavior/ConfirmDialogAction"]
+script = ExtResource( 7 )
+partner_id = "dog"
+show_notification = false

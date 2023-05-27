@@ -1,0 +1,22 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://data/quests/noticeboard/FrankieAndVinQuest.tscn" type="PackedScene" id=1]
+[ext_resource path="res://data/quests/noticeboard/TrainingVinQuest.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/core/QuestConditionalLayer.gd" type="Script" id=3]
+[ext_resource path="res://world/recurring_npcs/Vin.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sprites/portraits/vin_thinking.png" type="Texture" id=5]
+[ext_resource path="res://sfx/voices/male_npc_7/male_npc_7_greeting.wav" type="AudioStream" id=6]
+[ext_resource path="res://world/behaviors/generic_npc/DialogueNPCBehavior.tscn" type="PackedScene" id=7]
+
+[node name="QuestConditionalLayer" type="Spatial"]
+script = ExtResource( 3 )
+deny_quests_active = [ ExtResource( 1 ) ]
+require_quests_completed = [ ExtResource( 2 ) ]
+
+[node name="Vin" parent="." instance=ExtResource( 4 )]
+
+[node name="InteractionBehavior" parent="Vin" instance=ExtResource( 7 )]
+portrait = ExtResource( 5 )
+voice_audio = ExtResource( 6 )
+title = "{pawn}"
+dialogue = [ "VIN_TOWN_HALL_INTERACT1" ]

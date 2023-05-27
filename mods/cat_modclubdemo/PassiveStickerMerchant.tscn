@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://data/items/pulp.tres" type="Resource" id=1]
+[ext_resource path="res://sfx/voices/female_npc_2/female_npc_2_laugh_1.wav" type="AudioStream" id=2]
+[ext_resource path="res://world/recurring_npcs/PassiveStickerMerchant.tscn" type="PackedScene" id=4]
+[ext_resource path="res://world/behaviors/generic_npc/MerchantNPCBehavior.tscn" type="PackedScene" id=5]
+
+[node name="PassiveStickerMerchant" instance=ExtResource( 4 )]
+
+[node name="InteractionBehavior" parent="." index="9" instance=ExtResource( 5 )]
+voice_audio = ExtResource( 2 )
+dialogue = [ "HARBOURTOWN_MERCHANT_5" ]
+exchange_name = "HARBOURTOWN_MERCHANT_NAME_3"
+closing_dialogue = [ "HARBOURTOWN_MERCHANT_6" ]
+currency = ExtResource( 1 )
+stock_sticker_tags = [ "passive" ]
+random_sticker_stock_amount = 5
+additional_stock_stat_key = "merchant_stock_stickers"

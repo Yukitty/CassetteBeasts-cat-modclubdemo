@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://nodes/actions/values/GetPlayer.gd" type="Script" id=1]
+[ext_resource path="res://nodes/actions/FaceTowardsAction.gd" type="Script" id=2]
+[ext_resource path="res://addons/misc_utils/actions/values/GetPawn.gd" type="Script" id=3]
+[ext_resource path="res://nodes/actions/Cutscene.gd" type="Script" id=4]
+[ext_resource path="res://world/npc/HumanNPC.tscn" type="PackedScene" id=5]
+[ext_resource path="res://nodes/actions/SetBlackboardValues.gd" type="Script" id=6]
+[ext_resource path="res://data/characters/eugene.tres" type="Resource" id=7]
+[ext_resource path="res://world/core/ConditionalLayer.gd" type="Script" id=8]
+[ext_resource path="res://nodes/actions/ConfirmDialogAction.gd" type="Script" id=9]
+[ext_resource path="res://nodes/actions/UnlockPartnerAction.gd" type="Script" id=10]
+
+[node name="ConditionalLayer" type="Spatial"]
+script = ExtResource( 8 )
+deny_partner_id = "eugene"
+require_partner_unlocked = "eugene"
+
+[node name="Eugene" parent="." instance=ExtResource( 5 )]
+npc_name = "EUGENE_NAME"
+pronouns = 0
+sprite_colors = {
+"body_color_1": 9,
+"body_color_2": 14,
+"eye_color": 16,
+"face_accessory_color": 14,
+"favorite_color": 9,
+"hair_accessory_color": 12,
+"hair_color": 15,
+"legs_color": 6,
+"shoe_color": 3,
+"skin_color": 20
+}
+sprite_part_names = {
+"arms": "eugene",
+"body": "eugene",
+"hair": "eugene",
+"head": "",
+"legs": "",
+"wings": ""
+}
+character = ExtResource( 7 )
+human_colors/body_color_1 = 9
+human_colors/body_color_2 = 14
+human_colors/eye_color = 16
+human_colors/face_accessory_color = 14
+human_colors/favorite_color = 9
+human_colors/hair_accessory_color = 12
+human_colors/hair_color = 15
+human_colors/legs_color = 6
+human_colors/shoe_color = 3
+human_colors/skin_color = 20
+
+[node name="InteractionBehavior" type="Node" parent="Eugene"]
+script = ExtResource( 4 )
+
+[node name="FaceTowardsAction" type="Node" parent="Eugene/InteractionBehavior"]
+script = ExtResource( 2 )
+
+[node name="GetPawn" type="Node" parent="Eugene/InteractionBehavior/FaceTowardsAction"]
+script = ExtResource( 3 )
+
+[node name="GetPlayer" type="Node" parent="Eugene/InteractionBehavior/FaceTowardsAction"]
+script = ExtResource( 1 )
+
+[node name="SetBlackboardValues" type="Node" parent="Eugene/InteractionBehavior"]
+script = ExtResource( 6 )
+bb_values = {
+"name": "EUGENE_NAME"
+}
+
+[node name="ConfirmDialogAction" type="Node" parent="Eugene/InteractionBehavior"]
+script = ExtResource( 9 )
+message = "PARTNER_SWAP_CONFIRM"
+substitute_blackboard_keys = [ "name" ]
+
+[node name="UnlockPartnerAction" type="Node" parent="Eugene/InteractionBehavior/ConfirmDialogAction"]
+script = ExtResource( 10 )
+partner_id = "eugene"
+show_notification = false
