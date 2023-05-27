@@ -12,7 +12,7 @@ You must download and install [Mod Utils](https://github.com/Yukitty/CassetteBea
 
 All original mod assets, scripts, and edits are published under [CC0](LICENSE)
 
-To the extent possible under law, Yukita Mayako has waived all copyright and related or neighboring rights to Mod Utils Spawn Demo. This work is published from: United States.
+To the extent possible under law, Yukita Mayako has waived all copyright and related or neighboring rights to Mod Utils Mod Club Demo. This work is published from: United States.
 
 [Cassette Beasts](https://www.cassettebeasts.com/) is developed by [Bytten Studio](https://bytten-studio.com/) and published by [Raw Fury](https://rawfury.com/).
 
